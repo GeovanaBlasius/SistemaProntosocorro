@@ -1,30 +1,49 @@
-public class Paciente extends Pessoa {
-    private ClassificacaoRisco classificacao;
-    private final long horarioChegada;
+import java.time.LocalDateTime;
 
-    public Paciente(String nome, String CPF) {
+public class Paciente extends Pessoa {
+    private int id;
+    private String classificacao;
+    private LocalDateTime horaChegada;
+    private LocalDateTime horaAtendimento;
+    private boolean atendido;
+
+    public Paciente(int id, String nome, String CPF) {
         super(nome, CPF);
-        this.horarioChegada = System.currentTimeMillis();
+        this.id = id;
+        this.horaChegada = LocalDateTime.now();
+        this.atendido = false;
     }
 
-    public ClassificacaoRisco getClassificacao() {
+    // Getters e Setters
+    public int getId() {
+        return id;
+    }
+
+    public String getClassificacao() {
         return classificacao;
     }
 
-    public void setClassificacao(ClassificacaoRisco classificacao) {
-        if (classificacao == null) {
-            throw new IllegalArgumentException("Classificação de risco não pode ser nula.");
-        }
+    public void setClassificacao(String classificacao) {
         this.classificacao = classificacao;
     }
 
-    public long getHorarioChegada() {
-        return horarioChegada;
+    public LocalDateTime getHoraChegada() {
+        return horaChegada;
     }
 
-    @Override
-    public String toString() {
-        String risco = (classificacao != null) ? classificacao.getCor() : "Sem classificação";
-        return super.toString() + " - Risco: " + risco;
+    public LocalDateTime getHoraAtendimento() {
+        return horaAtendimento;
+    }
+
+    public void setHoraAtendimento(LocalDateTime horaAtendimento) {
+        this.horaAtendimento = horaAtendimento;
+    }
+
+    public boolean isAtendido() {
+        return atendido;
+    }
+
+    public void setAtendido(boolean atendido) {
+        this.atendido = atendido;
     }
 }

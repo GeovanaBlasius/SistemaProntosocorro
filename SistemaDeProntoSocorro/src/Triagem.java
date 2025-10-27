@@ -8,43 +8,38 @@ public class Triagem {
 
         int pontuacao = 0;
 
-        System.out.print("1. O paciente está com falta de ar ou dor no peito intensa (s/n)? ");
-        if (lerResposta(sc).equalsIgnoreCase("s")) pontuacao += 4;
+        System.out.println("1. Tem dor muito forte?");
+        System.out.println("   [1] Sim || [2] Não ");
+        System.out.print("Resposta: ");
+        if (sc.nextLine().equals("1")) pontuacao += 1;
 
-        System.out.print("2. O paciente está com sangramento descontrolado ou confusão mental (s/n)? ");
-        if (lerResposta(sc).equalsIgnoreCase("s")) pontuacao += 3;
+        System.out.println("\n2. Está sangrando muito?");
+        System.out.println("   [1] Sim || [2] Não ");
+        System.out.print("Resposta: ");
+        if (sc.nextLine().equals("1")) pontuacao += 2;
 
-        System.out.print("3. O paciente está com dor moderada/febre alta, mas está estável (s/n)? ");
-        if (lerResposta(sc).equalsIgnoreCase("s")) pontuacao += 1;
+        System.out.println("\n3. Está com febre alta?");
+        System.out.println("   [1] Sim || [2] Não ");
+        System.out.print("Resposta: ");
+        if (sc.nextLine().equals("1")) pontuacao += 1;
 
-        System.out.print("4. O paciente tem queixas leves (resfriado, dor de cabeça leve, etc.) (s/n)? ");
-        if (lerResposta(sc).equalsIgnoreCase("s")) pontuacao -= 2;
+        System.out.println("\n4. Está com falta de ar?");
+        System.out.println("   [1] Sim || [2] Não ");
+        System.out.print("Resposta: ");
+        if (sc.nextLine().equals("1")) pontuacao += 2;
 
         String prioridade;
-
         if (pontuacao >= 4) {
-            prioridade = "VERMELHO";
-        } else if (pontuacao >= 3) {
-            prioridade = "AMARELO";
-        } else if (pontuacao >= 1) {
-            prioridade = "VERDE";
+            prioridade = "VERMELHO";    // Gravíssima
+        } else if (pontuacao >= 2) {
+            prioridade = "AMARELO";     // Grave
+        } else if (pontuacao == 1) {
+            prioridade = "VERDE";       // Leve
         } else {
-            prioridade = "AZUL";
+            prioridade = "AZUL";        // Muito leve
         }
 
-        System.out.println("\n✅ Classificação: " + prioridade + " (Pontuação: " + pontuacao + ")");
+        System.out.println("\n✅ Classificação: " + prioridade + " (" + pontuacao + "/4 pontos)");
         return prioridade;
-    }
-
-    private static String lerResposta(Scanner sc) {
-        String entrada;
-        while (true) {
-            entrada = sc.nextLine().trim().toLowerCase();
-            if (entrada.equals("s") || entrada.equals("n")) {
-                return entrada;
-            } else {
-                System.out.print("⚠️ Resposta inválida! Digite 's' para Sim ou 'n' para Não: ");
-            }
-        }
     }
 }

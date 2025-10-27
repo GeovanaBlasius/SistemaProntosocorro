@@ -17,12 +17,7 @@ public class Paciente extends Pessoa {
     }
 
     public void setPrioridade(String prioridade) {
-        this.prioridade = prioridade.toUpperCase();
-    }
-
-    // Essencial para a ordenação na FilaAtendimento
-    public LocalDateTime getHoraChegada() {
-        return horaChegada;
+        this.prioridade = prioridade;
     }
 
     public void registrarAtendimento(String medico) {
@@ -30,16 +25,12 @@ public class Paciente extends Pessoa {
         this.horaAtendimento = LocalDateTime.now();
     }
 
-    public String getHoraAtendimentoFormatada() {
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm:ss");
-        return horaAtendimento != null ? horaAtendimento.format(fmt) : "N/A";
-    }
-
     @Override
     public String toString() {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm:ss");
         StringBuilder sb = new StringBuilder();
         sb.append("Nome: ").append(getNome())
+                .append(" | CPF: ").append(getCPF())
                 .append(" | Prioridade: ").append(prioridade)
                 .append(" | Chegada: ").append(horaChegada.format(fmt));
 

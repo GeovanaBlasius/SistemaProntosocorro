@@ -1,14 +1,12 @@
 import java.util.*;
-import java.time.LocalDateTime;
 
 public class FilaAtendimento {
     private List<Paciente> fila;
-
     private static final Map<String, Integer> PRIORIDADE_ORDEM = Map.of(
-            "VERMELHO", 1,
-            "AMARELO", 2,
-            "VERDE", 3,
-            "AZUL", 4
+            "Vermelho", 1,
+            "Amarelo", 2,
+            "Verde", 3,
+            "Azul", 4
     );
 
     public FilaAtendimento() {
@@ -16,21 +14,9 @@ public class FilaAtendimento {
     }
 
     public void adicionarPaciente(Paciente paciente) {
-        String prioridade = paciente.getPrioridade();
-
-        if (prioridade == null || !PRIORIDADE_ORDEM.containsKey(prioridade)) {
-            System.out.println("⚠️ Erro de prioridade: " + prioridade);
-            return;
-        }
-
         fila.add(paciente);
-
-        // Ordena por prioridade (cor) e depois por hora de chegada (graças ao método getHoraChegada() na classe Paciente)//
-        fila.sort(Comparator
-                .comparing((Paciente p) -> PRIORIDADE_ORDEM.get(p.getPrioridade()))
-                .thenComparing(Paciente::getHoraChegada));
-
-        System.out.println("✅ Paciente " + paciente.getNome() + " adicionado à fila (" + paciente.getPrioridade() + ")");
+        fila.sort(Comparator.comparing(p -> PRIORIDADE_ORDEM.get(p.getPrioridade())));
+        System.out.println("Paciente " + paciente.getNome() + " adicionado à fila (" + paciente.getPrioridade() + ")");
     }
 
     public Paciente chamarProximo() {
@@ -39,6 +25,7 @@ public class FilaAtendimento {
     }
 
     public void mostrarFila() {
+        System.out.println("\n--- Fila de Pacientes ---");
         if (fila.isEmpty()) {
             System.out.println("Nenhum paciente aguardando.");
             return;
@@ -52,9 +39,5 @@ public class FilaAtendimento {
 
     public boolean isVazia() {
         return fila.isEmpty();
-    }
-
-    public int getTamanho() {
-        return fila.size();
     }
 }

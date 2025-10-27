@@ -1,20 +1,29 @@
 public class Triagem {
-    public static void classificarPaciente(Paciente paciente, int respostasCriticas) {
-        if (paciente == null) {
-            throw new IllegalArgumentException("Paciente inválido para triagem.");
-        }
+    private int id;
+    private String classificacao;
 
-        ClassificacaoRisco classificacao;
-        if (respostasCriticas >= 3) {
-            classificacao = new ClassificacaoRisco("Vermelho", 1, "Emergência - Atender imediatamente");
-        } else if (respostasCriticas == 2) {
-            classificacao = new ClassificacaoRisco("Laranja", 2, "Muito urgente - até 10 minutos");
-        } else if (respostasCriticas == 1) {
-            classificacao = new ClassificacaoRisco("Amarelo", 3, "Urgente - até 30 minutos");
-        } else {
-            classificacao = new ClassificacaoRisco("Verde", 4, "Pouco urgente - pode esperar");
-        }
+    public Triagem(int id) {
+        this.id = id;
+    }
+
+    public String classificar(Paciente paciente) {
+        // Exemplo simples de classificação (pode ser expandido)
+        double random = Math.random();
+        if (random < 0.25) classificacao = "Vermelho - Emergência";
+        else if (random < 0.5) classificacao = "Amarelo - Urgente";
+        else if (random < 0.75) classificacao = "Verde - Pouco Urgente";
+        else classificacao = "Azul - Não Urgente";
 
         paciente.setClassificacao(classificacao);
+        return classificacao;
+    }
+
+    // Getters
+    public int getId() {
+        return id;
+    }
+
+    public String getClassificacao() {
+        return classificacao;
     }
 }

@@ -10,12 +10,20 @@ public class Medico extends Pessoa {
         return especialidade;
     }
 
+    public void setEspecialidade(String especialidade) {
+        this.especialidade = especialidade;
+    }
+
     public void atenderPaciente(Paciente paciente) {
         paciente.registrarAtendimento(this.getNome());
     }
 
     @Override
     public String toString() {
-        return "Médico: " + getNome() + " | Especialidade: " + especialidade;
+        StringBuilder sb = new StringBuilder();
+        sb.append("Médico: ").append(getNome())
+                .append(" | CPF: ").append(getCPF())
+                .append(" | Especialidade: ").append(especialidade);
+        return sb.toString();
     }
 }
