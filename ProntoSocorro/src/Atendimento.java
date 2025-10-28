@@ -11,7 +11,6 @@ public class Atendimento {
         this.horaAtendimento = LocalDateTime.now();
     }
 
-    // Getters e Setters
     public Paciente getPaciente() {
         return paciente;
     }
@@ -22,5 +21,12 @@ public class Atendimento {
 
     public LocalDateTime getHoraAtendimento() {
         return horaAtendimento;
+    }
+
+    @Override
+    public String toString() {
+        return "Atendimento: " + paciente.getNome() +
+                " com " + medico.getNome() +
+                " em " + horaAtendimento;
     }
 }

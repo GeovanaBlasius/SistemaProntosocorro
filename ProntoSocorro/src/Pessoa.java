@@ -23,4 +23,12 @@ public class Pessoa {
     public void setCPF(String CPF) {
         this.CPF = CPF;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nome: ").append(nome)
+                .append(" | CPF: ").append(CPF);
+        return sb.toString();
+    }
 }

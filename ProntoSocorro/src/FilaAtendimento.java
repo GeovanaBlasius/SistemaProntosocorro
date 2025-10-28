@@ -1,36 +1,48 @@
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class FilaAtendimento {
-    private Queue<Paciente> fila;
+    private List<Paciente> fila;
+    private static final Map<String, Integer> PRIORIDADE_ORDEM = Map.of(
+            "VERMELHO", 1,
+            "AMARELO", 2,
+            "VERDE", 3,
+            "AZUL", 4
+    );
 
     public FilaAtendimento() {
         fila = new LinkedList<>();
     }
 
-    public void adicionarPaciente(Paciente paciente) {
-        fila.add(paciente);
-        System.out.println("Paciente " + paciente.getNome() + " adicionado à fila.");
+    public void adicionarPaciente(Paciente p, boolean exibirMensagem) {
+        fila.add(p);
+        if (exibirMensagem) {
+            System.out.println("✅ Paciente " + p.getNome() + " adicionado à fila.");
+        }
     }
 
     public Paciente chamarProximo() {
-        Paciente proximo = fila.poll();
-        if (proximo != null) {
-            System.out.println("Chamando paciente: " + proximo.getNome());
-        } else {
-            System.out.println("Nenhum paciente na fila.");
+        if (fila.isEmpty()) {
+            System.out.println("⚠️ Nenhum paciente na fila.");
+            return null;
         }
+
+        fila.sort(Comparator.comparingInt(p ->
+                PRIORIDADE_ORDEM.getOrDefault(p.getClassificacao().toUpperCase(), Integer.MAX_VALUE))
+        );
+
+        Paciente proximo = fila.remove(0);
+        System.out.println("➡️ Chamando paciente: " + proximo.getNome() + " | Prioridade: " + proximo.getClassificacao());
         return proximo;
     }
 
     public void mostrarFila() {
-        System.out.println("\n--- Fila de Atendimento ---");
+        System.out.println("\n--- FILA DE ATENDIMENTO ---");
         if (fila.isEmpty()) {
             System.out.println("Fila vazia.");
         } else {
+            int pos = 1;
             for (Paciente p : fila) {
-                System.out.println(p.getNome() + " - Classificação: " + p.getClassificacao());
+                System.out.println(pos++ + "º - " + p.getNome() + " | Prioridade: " + p.getClassificacao());
             }
         }
     }

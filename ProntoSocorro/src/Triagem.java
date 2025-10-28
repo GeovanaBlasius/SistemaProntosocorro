@@ -1,26 +1,47 @@
+import java.util.Scanner;
+
 public class Triagem {
-    private int id;
     private String classificacao;
 
-    public Triagem(int id) {
-        this.id = id;
-    }
+    public static String classificar(Paciente paciente) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n=== TRIAGEM - " + paciente.getNome() + " ===");
 
-    public String classificar(Paciente paciente) {
-        // Exemplo simples de classificação (pode ser expandido)
-        double random = Math.random();
-        if (random < 0.25) classificacao = "Vermelho - Emergência";
-        else if (random < 0.5) classificacao = "Amarelo - Urgente";
-        else if (random < 0.75) classificacao = "Verde - Pouco Urgente";
-        else classificacao = "Azul - Não Urgente";
+        int pontuacao = 0;
 
-        paciente.setClassificacao(classificacao);
-        return classificacao;
-    }
+        System.out.println("1. Tem dor muito forte?");
+        System.out.println("   [1] Sim || [2] Não ");
+        System.out.print("Resposta: ");
+        if (sc.nextLine().equals("1")) pontuacao += 1;
 
-    // Getters
-    public int getId() {
-        return id;
+        System.out.println("\n2. Está sangrando muito?");
+        System.out.println("   [1] Sim || [2] Não ");
+        System.out.print("Resposta: ");
+        if (sc.nextLine().equals("1")) pontuacao += 2;
+
+        System.out.println("\n3. Está com febre alta?");
+        System.out.println("   [1] Sim || [2] Não ");
+        System.out.print("Resposta: ");
+        if (sc.nextLine().equals("1")) pontuacao += 1;
+
+        System.out.println("\n4. Está com falta de ar?");
+        System.out.println("   [1] Sim || [2] Não ");
+        System.out.print("Resposta: ");
+        if (sc.nextLine().equals("1")) pontuacao += 2;
+
+        String prioridade;
+        if (pontuacao >= 4) {
+            prioridade = "VERMELHO";    // Gravíssima
+        } else if (pontuacao >= 2) {
+            prioridade = "AMARELO";     // Grave
+        } else if (pontuacao == 1) {
+            prioridade = "VERDE";       // Leve
+        } else {
+            prioridade = "AZUL";        // Muito leve
+        }
+
+        System.out.println("\n✅ Prioridade: " + prioridade + " (" + pontuacao + "/4 pontos)");
+        return prioridade;
     }
 
     public String getClassificacao() {

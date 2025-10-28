@@ -1,22 +1,22 @@
 import java.time.LocalDateTime;
 
 public class Paciente extends Pessoa {
-    private int id;
-    private String classificacao;
+    private String classificacao; // Vermelho, Amarelo, Verde, Azul
     private LocalDateTime horaChegada;
     private LocalDateTime horaAtendimento;
     private boolean atendido;
 
-    public Paciente(int id, String nome, String CPF) {
-        super(nome, CPF);
-        this.id = id;
+    public Paciente(String nome, String cpf, String classificacao) {
+        super(nome, cpf);
+        this.classificacao = classificacao;
         this.horaChegada = LocalDateTime.now();
         this.atendido = false;
     }
 
-    // Getters e Setters
-    public int getId() {
-        return id;
+    public Paciente(String nome, String cpf) {
+        super(nome, cpf);
+        this.horaChegada = LocalDateTime.now();
+        this.atendido = false;
     }
 
     public String getClassificacao() {
@@ -35,15 +35,17 @@ public class Paciente extends Pessoa {
         return horaAtendimento;
     }
 
-    public void setHoraAtendimento(LocalDateTime horaAtendimento) {
-        this.horaAtendimento = horaAtendimento;
-    }
-
     public boolean isAtendido() {
         return atendido;
     }
 
-    public void setAtendido(boolean atendido) {
-        this.atendido = atendido;
+    public void registrarAtendimento() {
+        this.horaAtendimento = LocalDateTime.now();
+        this.atendido = true;
+    }
+
+    @Override
+    public String toString() {
+        return getNome() + " - Classificação: " + classificacao;
     }
 }
